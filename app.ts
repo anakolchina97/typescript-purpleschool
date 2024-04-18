@@ -1,31 +1,23 @@
-interface IPayment {
-  sum: number;
-  from: number;
-  to: number;
+// void в TypeScript обозначает, что функция не возвращает никакого значения.
+
+function logId(id: number | string): void {
+  console.log(id);
 }
 
-enum PaymentStatus {
-  SUCCESS = "success",
-  FAILED = "failed",
-}
+// можем вернуть все что угодно, но в результате этот возврат будет игнорироваться.
+type voidFunction = () => void;
 
-interface IPaymentRequest extends IPayment {}
+const f1: voidFunction = () => {};
+const f2: voidFunction = () => true;
 
-interface IDataSuccess extends IPayment {
-  databaseId: number;
-}
+const b = f2();
 
-interface IDataFailed {
-  errorMessage: string;
-  errorCode: number;
-}
+const skills = ["html", "css", "js"];
 
-interface IResponseSuccess {
-  status: PaymentStatus.SUCCESS;
-  data: IDataSuccess;
-}
+const user: {
+  skills: string[];
+} = {
+  skills: [],
+};
 
-interface IResponseFailed {
-  status: PaymentStatus.FAILED;
-  data: IDataFailed;
-}
+skills.forEach((skill) => user.skills.push(skill));
