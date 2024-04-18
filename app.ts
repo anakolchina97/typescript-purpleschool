@@ -1,7 +1,3 @@
-let a: number = 5;
-let b: string = String(a);
-let c: number = Number(b);
-
 interface User {
   name: string;
   email: string;
@@ -19,13 +15,32 @@ interface Admin {
   role: string;
 }
 
-// неправильно и не удобно
-const admin: Admin = {
-  ...user,
-  role: "admin",
-};
+function logId(id: string | number) {
+  if (isString(id)) {
+    console.log(id);
+  } else {
+    console.log(id);
+  }
+}
 
-// правильно
-function userToAdmin(user: User): Admin {
-  return { name: user.name, role: "admin" };
+// type guard
+function isString(x: string | number): x is string {
+  return typeof x === "string";
+}
+
+function isAdmin(user: User | Admin): user is Admin {
+  return "role" in user;
+}
+
+function isAdminAlternative(user: User | Admin): user is Admin {
+  // user as Admin мы приводим пользователя к типу Admin
+  return (user as Admin).role !== undefined;
+}
+
+function setRoleZero(user: User | Admin) {
+  if (isAdmin(user)) {
+    user.role = "zero";
+  } else {
+    throw new Error("Not an admin");
+  }
 }
