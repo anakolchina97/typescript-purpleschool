@@ -1,24 +1,19 @@
-// never функция никогда не вернет какое-то значение
-const generateError = (message: string): never => {
-  throw new Error(message);
-};
+const n: null = null;
+const a: any = null;
 
-const dumpError = (): never => {
-  while (true) {}
-};
+interface User {
+  name: string;
+}
 
-type paymentAction = "refund" | "checkout" | "reject";
-
-function processAction(action: paymentAction) {
-  switch (action) {
-    case "refund":
-      // ...
-      break;
-    case "checkout":
-      // ...
-      break;
-    default:
-      const _: never = action;
-      throw new Error("Unknown action");
+function getUser() {
+  if (Math.random() > 0.5) {
+    return null;
+  } else {
+    return {
+      name: "John",
+    } as User;
   }
 }
+
+const user = getUser();
+const n55 = user?.name;
