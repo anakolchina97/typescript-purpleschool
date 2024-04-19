@@ -1,24 +1,31 @@
-class User {
-  name: string;
-  age: number;
+enum PaymentStatus {
+  Holded,
+  Processed,
+  Reversed,
+}
 
-  constructor();
-  constructor(name: string);
-  constructor(age: number);
-  constructor(name: string, age: number);
-  constructor(ageOrName?: string | number, age?: number) {
-    if (typeof ageOrName === "string") {
-      this.name = ageOrName;
-    } else if (typeof ageOrName === "number") {
-      this.age = ageOrName;
-    }
+class Payment {
+  id: number;
+  status: PaymentStatus = PaymentStatus.Holded;
+  createAt: Date = new Date();
+  updateAt: Date;
 
-    if (typeof age === "number") {
-      this.age = age;
+  constructor(id: number) {
+    this.id = id;
+  }
+  getPaymentLifeTime(): number {
+    return new Date().getTime() - this.createAt.getTime();
+  }
+  unholdPayment(): void {
+    if (this.status === PaymentStatus.Processed) {
+      throw new Error("Платеж не может быть возвращен");
     }
+    this.status = PaymentStatus.Reversed;
+    this.updateAt = new Date();
   }
 }
 
-const user = new User("Peter");
-const user2 = new User("John", 33);
-const user3 = new User(33);
+const payment = new Payment(1);
+payment.unholdPayment();
+console.log(payment);
+const time = payment.getPaymentLifeTime();
