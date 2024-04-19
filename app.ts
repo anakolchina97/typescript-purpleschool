@@ -1,18 +1,24 @@
 class User {
   name: string;
-  constructor(name: string) {
-    this.name = name;
+  age: number;
+
+  constructor();
+  constructor(name: string);
+  constructor(age: number);
+  constructor(name: string, age: number);
+  constructor(ageOrName?: string | number, age?: number) {
+    if (typeof ageOrName === "string") {
+      this.name = ageOrName;
+    } else if (typeof ageOrName === "number") {
+      this.age = ageOrName;
+    }
+
+    if (typeof age === "number") {
+      this.age = age;
+    }
   }
 }
 
-const user = new User("John");
-console.log(user);
-user.name = "Peter";
-console.log(user);
-
-class Admin {
-  role: number;
-}
-
-const admin = new Admin();
-admin.role = 1;
+const user = new User("Peter");
+const user2 = new User("John", 33);
+const user3 = new User(33);
