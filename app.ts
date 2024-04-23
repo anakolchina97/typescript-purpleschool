@@ -1,25 +1,22 @@
 class User {
-  skills: string[];
+  _login: string;
+  password: string;
+  createAt: Date;
 
-  constructor(skills: string[] = []) {
-    this.skills = skills;
+  set login(l: string) {
+    this._login = `user-${l}`;
+    this.createAt = new Date();
   }
 
-  addSkill(skill: string): void;
-  addSkill(skills: string[]): void;
-  addSkill(skillOrSkills: string | string[]): void {
-    if (typeof skillOrSkills === "string") {
-      this.skills.push(skillOrSkills);
-    } else {
-      this.skills.push(...skillOrSkills);
-    }
+  get login() {
+    return "no";
   }
+
+  getPassword(p: string) {}
 }
 
 const user = new User();
-user.addSkill(["HTML", "CSS"]);
-console.log(user.skills);
+user.login = "test";
 
-function run(distance: string): void;
-function run(distance: number): void;
-function run(distance: number | string): void {}
+console.log(user);
+console.log(user.login);
