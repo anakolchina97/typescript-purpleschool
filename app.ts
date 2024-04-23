@@ -1,31 +1,25 @@
-enum PaymentStatus {
-  Holded,
-  Processed,
-  Reversed,
-}
+class User {
+  skills: string[];
 
-class Payment {
-  id: number;
-  status: PaymentStatus = PaymentStatus.Holded;
-  createAt: Date = new Date();
-  updateAt: Date;
+  constructor(skills: string[] = []) {
+    this.skills = skills;
+  }
 
-  constructor(id: number) {
-    this.id = id;
-  }
-  getPaymentLifeTime(): number {
-    return new Date().getTime() - this.createAt.getTime();
-  }
-  unholdPayment(): void {
-    if (this.status === PaymentStatus.Processed) {
-      throw new Error("Платеж не может быть возвращен");
+  addSkill(skill: string): void;
+  addSkill(skills: string[]): void;
+  addSkill(skillOrSkills: string | string[]): void {
+    if (typeof skillOrSkills === "string") {
+      this.skills.push(skillOrSkills);
+    } else {
+      this.skills.push(...skillOrSkills);
     }
-    this.status = PaymentStatus.Reversed;
-    this.updateAt = new Date();
   }
 }
 
-const payment = new Payment(1);
-payment.unholdPayment();
-console.log(payment);
-const time = payment.getPaymentLifeTime();
+const user = new User();
+user.addSkill(["HTML", "CSS"]);
+console.log(user.skills);
+
+function run(distance: string): void;
+function run(distance: number): void;
+function run(distance: number | string): void {}
