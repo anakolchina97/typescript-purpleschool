@@ -1,48 +1,29 @@
-class User {
-  name: string;
+class Vehicle {
+  make: string;
+  private damages: string[];
+  private _model: string;
+  protected run: number;
+  private price: number;
 
-  constructor(name: string) {
-    this.name = name;
+  set model(model: string) {
+    this._model = model;
+    this.price = 100;
+  }
+
+  get model() {
+    return this._model;
+  }
+
+  addDamage(damage: string) {
+    this.damages.push(damage);
   }
 }
 
-class Users extends Array<User> {
-  searchByName(name: string) {
-    return this.filter((user) => user.name === name);
-  }
-
-  override toString(): string {
-    return this.map((user) => user.name).join(", ");
+class EuroTruck extends Vehicle {
+  setDamages(km: number) {
+    this.run = km / 0.62;
   }
 }
 
-const users = new Users();
-users.push(new User("Ivan"));
-users.push(new User("Kate"));
-console.log(users.toString());
-
-class UserList {
-  users: User[];
-
-  push(user: User) {
-    this.users.push(user);
-  }
-}
-
-class Payment {
-  data: Date;
-}
-
-class UserWithPayment extends User {
-  userId: string;
-}
-
-class UserWithPayment2 {
-  user: User;
-  payment: Payment;
-
-  constructor(user: User, payment: Payment) {
-    this.payment = payment;
-    this.user = user;
-  }
-}
+new Vehicle();
+new EuroTruck();
